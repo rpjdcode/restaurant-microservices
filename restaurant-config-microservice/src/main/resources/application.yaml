@@ -1,0 +1,15 @@
+server:
+  port: 9000
+  
+spring:
+  application:
+    name: restaurant-config-microservice
+  cloud:
+    config:
+      server:
+        git:
+          default-label: config-server
+          uri: https://github.com/rpjdcode/restaurant-microservices
+          search-paths: config-data
+          username: rpjdcode
+          password: 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

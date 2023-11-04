@@ -1,0 +1,19 @@
+eviden:
+  config:
+    db:
+      name: proyectodb
+server:
+  port: 9002
+  
+spring:
+  application:
+    name: restaurant-beverage-microservice
+  datasource:
+   url: jdbc:mysql://localhost:3306/${eviden.config.db.name}
+   username: micro
+   password: Tc_Yk[KUp0adN/1o
+   driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
