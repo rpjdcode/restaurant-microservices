@@ -24,7 +24,7 @@ public class ResConsumerService {
 
 	@Autowired
 	private RestTemplate restTemplate;
-	
+
 	@Autowired
 	private BookingFeignClient bookingFeignClient;
 
@@ -33,23 +33,29 @@ public class ResConsumerService {
 	}
 
 	/**
-	 * Método encargado de encontrar las reservas relacionadas con un cliente, estableciendo
-	 * la comunicación con RestTemplate hacia un endpoint del microservicio de bookings
+	 * Método encargado de encontrar las reservas relacionadas con un cliente,
+	 * estableciendo la comunicación con RestTemplate hacia un endpoint del
+	 * microservicio de bookings
+	 * 
 	 * @param consumerId
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Booking> findConsumerBookings(long consumerId) {
-		String url = restTemplateConfig.getBookingsBaseUrl().concat(restTemplateConfig.getBookingsPort())
-				.concat(restTemplateConfig.getBookingsEndpoint()+"/booking/");
-		List<Booking> bookings = restTemplate.getForObject(url + consumerId,
-				List.class);
+//		String url = restTemplateConfig.getBookingsBaseUrl().concat(restTemplateConfig.getBookingsPort())
+//				.concat(restTemplateConfig.getBookingsEndpoint()+"/booking/");
+		// Al estar registrado en Eureka, sólo con indicar el nombre del microservicio es suficiente
+		String url = restTemplateConfig.getEurekaBookingsBaseUrl().concat(restTemplateConfig.getEurekaBookingsMicroName())
+				.concat(restTemplateConfig.getBookingsEndpoint() + "/booking/");
+
+		List<Booking> bookings = restTemplate.getForObject(url + consumerId, List.class);
 		return bookings;
 	}
-	
+
 	/**
-	 * Obtiene las reservas de un cliente usando FeignClient como método de comunicación
-	 * con el microservicio de reservaws
+	 * Obtiene las reservas de un cliente usando FeignClient como método de
+	 * comunicación con el microservicio de reservaws
+	 * 
 	 * @param consumerId
 	 * @return Lista de reservas del cliente
 	 */
@@ -70,7 +76,7 @@ public class ResConsumerService {
 	public ResConsumer saveAndFlush(ResConsumer consumer) {
 		return repository.saveAndFlush(consumer);
 	}
-	
+
 	@Transactional
 	public Booking saveBooking(Booking booking) {
 		return bookingFeignClient.save(booking);

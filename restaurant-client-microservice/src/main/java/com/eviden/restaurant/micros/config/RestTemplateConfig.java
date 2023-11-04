@@ -1,6 +1,7 @@
 package com.eviden.restaurant.micros.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +24,15 @@ public class RestTemplateConfig {
 	
 	@Value("${template.bookings.endpoint}")
 	private String bookingsEndpoint;
+	
+	@Value("${eureka.bookings.baseurl}")
+	private String eurekaBookingsBaseUrl;
+	
+	@Value("${eureka.bookings.micro}")
+	private String eurekaBookingsMicroName;
 
 	@Bean
+	@LoadBalanced
 	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
