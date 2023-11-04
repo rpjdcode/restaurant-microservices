@@ -3,7 +3,7 @@ eviden:
     db:
       name: proyectodb
 server:
-  port: 9002
+  port: ${PORT:${SERVER_PORT:0}}
 eureka:
   client:
     fetch-registry: true
@@ -11,7 +11,7 @@ eureka:
     service-url:
       default-zone: http://localhost:8761/eureka
     instance:
-      hostname: localhost  
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 spring:
   application:
     name: restaurant-beverage-microservice
