@@ -1,0 +1,41 @@
+server:
+  port: 9090
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: restaurant-user-microservice
+          uri: lb://restaurant-user-microservice
+          predicates:
+            - Path=/api/users/**
+        - id: restaurant-client-microservice
+          uri: lb://restaurant-client-microservice
+          predicates:
+            - Path=/api/consumers/**
+        - id: restaurant-table-microservice
+          uri: lb://restaurant-table-microservice
+          predicates:
+            - Path=/api/tables/**
+        - id: restaurant-booking-microservice
+          uri: lb://restaurant-booking-microservice
+          predicates:
+            - Path=/api/bookings/**
+        - id: restaurant-beverage-microservice
+          uri: lb://restaurant-beverage-microservice
+          predicates:
+            - Path=/api/beverages/**
+        - id: restaurant-course-microservice
+          uri: lb://restaurant-course-microservice
+          predicates:
+            - Path=/api/courses/**
