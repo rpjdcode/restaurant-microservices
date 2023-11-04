@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.eviden.restaurant.micros.model.Booking;
 
-@FeignClient(name = "restaurant-booking-microservice", url="http://localhost:9004")
+@FeignClient(name = "restaurant-booking-microservice")
 public interface BookingFeignClient {
 
 	@GetMapping("/api/bookings/table/{tableId}")
