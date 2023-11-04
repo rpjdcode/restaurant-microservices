@@ -23,8 +23,12 @@ public class BookingService {
 		return repository.findById(id).orElse(null);
 	}
 	
-	public List<Booking> findByClientId(long id) {
-		return repository.findByClientId(id);
+	public List<Booking> findByCustomerId(long id) {
+		return repository.findByCustomerId(id);
+	}
+	
+	public List<Booking> findByTableId(long id) {
+		return repository.findByTableId(id);
 	}
 
 	@Transactional

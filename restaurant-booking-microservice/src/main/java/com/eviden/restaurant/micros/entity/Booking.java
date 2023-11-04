@@ -29,8 +29,8 @@ public class Booking {
 	@Column(name = "booking_time", columnDefinition = "DATETIME", nullable = false)
 	private LocalDateTime bookingTime;
 	
-	@Column(name = "client_id", columnDefinition = "INT(11)", nullable = false)
-	private Long clientId;
+	@Column(name = "customer_id", columnDefinition = "INT(11)", nullable = false)
+	private Long customerId;
 	
 	@Column(name = "tableId", columnDefinition = "INT(11)", nullable = false)
 	private Long tableId;
@@ -40,7 +40,7 @@ public class Booking {
 	
 	public Booking(BookingDTO dto) {
 		this.bookingTime = dto.getBookingTime();
-		this.clientId = dto.getClientId();
+		this.customerId = dto.getCustomerId();
 		this.tableId = dto.getTableId();
 		this.additionalComments = dto.getAdditionalComments();
 	}

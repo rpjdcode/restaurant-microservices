@@ -28,9 +28,14 @@ public class BookingController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 	
-	@GetMapping("/booking/{id}")
-	public ResponseEntity<?> getBookingByConsumerId(@PathVariable("id")long id) {
-		return ResponseEntity.ok(service.findByClientId(id));
+	@GetMapping("/booking/{customerId}")
+	public ResponseEntity<?> getBookingByCustomerIdEndpoint(@PathVariable("customerId")long customerId) {
+		return ResponseEntity.ok(service.findByCustomerId(customerId));
+	}
+	
+	@GetMapping("/table/{tableId}")
+	public ResponseEntity<?> getBookingByTableIdEndpoint(@PathVariable("tableId")long tableId) {
+		return ResponseEntity.ok(service.findByTableId(tableId));
 	}
 	
 	@PostMapping("/add")

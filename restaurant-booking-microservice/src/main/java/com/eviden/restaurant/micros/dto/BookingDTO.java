@@ -14,15 +14,15 @@ import lombok.NoArgsConstructor;
 public class BookingDTO {
 	
 	private LocalDateTime bookingTime;
-	private Long clientId;
+	private Long customerId;
 	private Long tableId;
 	private String additionalComments;
 
 	public BookingDTO(Booking booking) {
 		
 		this.bookingTime = booking.getBookingTime();
-		this.clientId = booking.getClientId();
-		this.tableId = booking.getClientId();
+		this.customerId = booking.getCustomerId();
+		this.tableId = booking.getCustomerId();
 		this.additionalComments = booking.getAdditionalComments();
 		
 	}

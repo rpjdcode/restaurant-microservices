@@ -14,8 +14,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long>{
 
 	List<Booking> findByTableId(Long tableId);
 	
-	List<Booking> findByClientId(Long clientId);
+	List<Booking> findByCustomerId(Long customerId);
 	
-	@Query("SELECT bo FROM Booking bo WHERE (bo.bookingTime BETWEEN :dateTime AND :bookingTimeLimit) AND bo.clientId=:clientId")
-	List<Booking> findByClientDateRange(@Param("client")Long clientId, @Param("dateTime")LocalDateTime dateTime, @Param("bookingTimeLimit")LocalDateTime limit);
+	@Query("SELECT bo FROM Booking bo WHERE (bo.bookingTime BETWEEN :dateTime AND :bookingTimeLimit) AND bo.customerId=:customer")
+	List<Booking> findByClientDateRange(@Param("customer")Long customer, @Param("dateTime")LocalDateTime dateTime, @Param("bookingTimeLimit")LocalDateTime limit);
+
 }
