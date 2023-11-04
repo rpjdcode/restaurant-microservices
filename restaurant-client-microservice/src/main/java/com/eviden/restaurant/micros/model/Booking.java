@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Booking {
 
+	private Long customerId;
 	private LocalDateTime bookingTime;
 	private Long tableId;
 	private String additionalComments;

@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.eviden.restaurant.micros.config.RestTemplateConfig;
 import com.eviden.restaurant.micros.entity.ResConsumer;
+import com.eviden.restaurant.micros.feign.BookingFeignClient;
 import com.eviden.restaurant.micros.model.Booking;
 import com.eviden.restaurant.micros.repository.ResConsumerRepository;
 
@@ -23,6 +24,9 @@ public class ResConsumerService {
 
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private BookingFeignClient bookingFeignClient;
 
 	public List<ResConsumer> findAll() {
 		return repository.findAll();
@@ -34,12 +38,23 @@ public class ResConsumerService {
 	 * @param consumerId
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Booking> findConsumerBookings(long consumerId) {
 		String url = restTemplateConfig.getBookingsBaseUrl().concat(restTemplateConfig.getBookingsPort())
 				.concat(restTemplateConfig.getBookingsEndpoint()+"/booking/");
 		List<Booking> bookings = restTemplate.getForObject(url + consumerId,
 				List.class);
 		return bookings;
+	}
+	
+	/**
+	 * Obtiene las reservas de un cliente usando FeignClient como método de comunicación
+	 * con el microservicio de reservaws
+	 * @param consumerId
+	 * @return Lista de reservas del cliente
+	 */
+	public List<Booking> feignFindConsumerBookings(long consumerId) {
+		return bookingFeignClient.findConsumerBookings(consumerId);
 	}
 
 	public ResConsumer findById(long id) {
@@ -54,6 +69,11 @@ public class ResConsumerService {
 	@Transactional
 	public ResConsumer saveAndFlush(ResConsumer consumer) {
 		return repository.saveAndFlush(consumer);
+	}
+	
+	@Transactional
+	public Booking saveBooking(Booking booking) {
+		return bookingFeignClient.save(booking);
 	}
 
 	@Transactional
