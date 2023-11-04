@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eviden.restaurant.micros.entity.ResTable;
+import com.eviden.restaurant.micros.feign.BookingFeignClient;
+import com.eviden.restaurant.micros.model.Booking;
 import com.eviden.restaurant.micros.repository.ResTableRepository;
 
 
@@ -20,6 +22,9 @@ public class ResTableService {
 
 	@Autowired
 	private ResTableRepository repository;
+	
+	@Autowired
+	private BookingFeignClient bookingFeignClient;
 	
 	public List<ResTable> findAll() {
 		return repository.findAll();
@@ -35,6 +40,10 @@ public class ResTableService {
 	
 	public List<ResTable> findByAvailability(boolean available) {
 		return repository.findByAvailable(available);
+	}
+	
+	public List<Booking> feignFindTableBookings(long tableId) {
+		return bookingFeignClient.findTableBookings(tableId);
 	}
 	
 	@Transactional

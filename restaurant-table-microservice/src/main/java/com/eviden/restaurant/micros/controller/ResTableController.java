@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eviden.restaurant.micros.dto.ResTableDTO;
 import com.eviden.restaurant.micros.entity.ResTable;
+import com.eviden.restaurant.micros.model.Booking;
 import com.eviden.restaurant.micros.service.ResTableService;
 
 @RestController
@@ -48,6 +50,13 @@ public class ResTableController {
 		ResTable tableNew = service.saveAndFlush(new ResTable(data));
 		
 		return ResponseEntity.ok(tableNew);
+	}
+	
+	@GetMapping("/feign/table/bookings/{tableId}")
+	public ResponseEntity<?> getTableBookingsFeignEndpoint(@PathVariable("tableId")long tableId) {
+		List<Booking> bookings = service.feignFindTableBookings(tableId);
+		
+		return ResponseEntity.ok(bookings);
 	}
 	
 }
