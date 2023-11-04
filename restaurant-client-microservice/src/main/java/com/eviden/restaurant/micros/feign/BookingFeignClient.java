@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.eviden.restaurant.micros.model.Booking;
 
-@FeignClient(name = "restaurant-booking-microservice", url="http://localhost:9004")
+@FeignClient(name = "restaurant-booking-microservice")
 public interface BookingFeignClient  {
 	
 	@PostMapping("/api/bookings/add")
