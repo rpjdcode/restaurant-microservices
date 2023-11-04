@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: restaurant-eureka-microservice
+    
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:9000
