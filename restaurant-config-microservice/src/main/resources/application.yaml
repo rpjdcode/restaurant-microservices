@@ -8,8 +8,8 @@ spring:
     config:
       server:
         git:
-          default-label: config-server
+          default-label: config-service
           uri: https://github.com/rpjdcode/restaurant-microservices
-          search-paths: config-data
+          search-paths: /restaurant-config-microservice/config-data
           username: rpjdcode
           password: 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
