@@ -23,10 +23,6 @@ spring:
       ddl-auto: update
     show-sql: true
 
-management:
-  tracing:
-    sampling:
-      probability: 1.0
 resilience4j.circuitbreaker:
     instances:
         bookingsCB:
@@ -38,4 +34,8 @@ resilience4j.circuitbreaker:
             waitDurationInOpenState: 5s
             failureRateThreshold: 50
             eventConsumerBufferSize: 10
-            
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
