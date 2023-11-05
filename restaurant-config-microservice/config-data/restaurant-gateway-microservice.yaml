@@ -9,6 +9,22 @@ eureka:
   instance:
     hostname: localhost
 spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:8080/realms/proyectoBackend/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:8080/realms/proyectoBackend/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+            token-uri: http://localhost:8080/realms/proyectoBackend/protocol/openid-connect/token
+        registration:
+          mi-cliente:
+            provider: keycloak
+            client-id: mi-cliente
+            client-secret: qv8Q0cfDpnQFR5KkkEo7cWgdGrbY9PMW
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:9090/login/oauth2/code/mi-cliente
   cloud:
     gateway:
       discovery:

@@ -1,0 +1,1 @@
+.\keycloak-22.0.5\bin\kc.bat start-dev
