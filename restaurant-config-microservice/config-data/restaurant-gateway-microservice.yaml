@@ -39,3 +39,7 @@ spring:
           uri: lb://restaurant-course-microservice
           predicates:
             - Path=/api/courses/**
+management:
+  tracing:
+    sampling:
+      probability: 1.0
