@@ -1,7 +1,12 @@
 spring:
   application:
     name: restaurant-client-microservice
-    
+  
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/proyectoBackend
   cloud:
     config:
       enabled: true
