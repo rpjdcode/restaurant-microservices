@@ -22,7 +22,7 @@ spring:
           mi-cliente:
             provider: keycloak
             client-id: mi-cliente
-            client-secret: YM3eMEBJe2vrfFpP3TW81mtakecGcV7S
+            client-secret: nsdBRfgpWGQWohMruqd7NyOB5z1HWvte
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:9090/login/oauth2/code/mi-cliente
   cloud:
