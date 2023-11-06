@@ -25,9 +25,10 @@ spring:
             client-secret: nsdBRfgpWGQWohMruqd7NyOB5z1HWvte
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:9090/login/oauth2/code/mi-cliente
-            scope: openid
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay
       discovery:
         locator:
           enabled: true
@@ -36,6 +37,8 @@ spring:
           uri: lb://restaurant-user-microservice
           predicates:
             - Path=/api/users/**
+          filters:
+            - RemoveRequestHeader=Cookie
         - id: restaurant-client-microservice
           uri: lb://restaurant-client-microservice
           predicates:
