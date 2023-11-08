@@ -28,6 +28,7 @@ public class BookingService {
 	}
 	
 	public List<Booking> findByTableId(long id) {
+		
 		return repository.findByTableId(id);
 	}
 

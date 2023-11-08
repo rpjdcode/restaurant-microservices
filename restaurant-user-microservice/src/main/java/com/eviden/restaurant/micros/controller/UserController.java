@@ -49,6 +49,7 @@ public class UserController {
 	 */
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> rootEndpoint() {
+
 		List<UserDTO> users = service.getUsers().stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
 		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}

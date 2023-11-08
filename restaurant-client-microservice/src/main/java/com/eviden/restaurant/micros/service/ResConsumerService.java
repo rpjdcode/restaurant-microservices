@@ -47,7 +47,6 @@ public class ResConsumerService {
 		// Al estar registrado en Eureka, sólo con indicar el nombre del microservicio es suficiente
 		String url = restTemplateConfig.getEurekaBookingsBaseUrl().concat(restTemplateConfig.getEurekaBookingsMicroName())
 				.concat(restTemplateConfig.getBookingsEndpoint() + "/booking/");
-
 		List<Booking> bookings = restTemplate.getForObject(url + consumerId, List.class);
 		return bookings;
 	}

@@ -11,15 +11,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-public class UserSecurity {
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests((authz) -> authz
-                .anyRequest().authenticated()
-            )
-            
-            .oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()));
-        return http.build();
-    }
+public class CourseSecurity {
+	
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests((authz) -> {
+			authz.anyRequest().authenticated();
+		})
+		.oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()));
+		
+		return http.build();
+	}
+
 }
