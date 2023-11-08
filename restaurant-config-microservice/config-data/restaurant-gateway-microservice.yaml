@@ -11,6 +11,9 @@ eureka:
 spring:
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/proyectoBackend
       client:
         provider:
           keycloak:
@@ -18,6 +21,7 @@ spring:
             user-info-uri: http://localhost:8080/realms/proyectoBackend/protocol/openid-connect/userinfo
             user-name-attribute: preferred_username
             token-uri: http://localhost:8080/realms/proyectoBackend/protocol/openid-connect/token
+            issuer-uri: http://localhost:8080/realms/proyectoBackend
         registration:
           mi-cliente:
             provider: keycloak
@@ -25,6 +29,7 @@ spring:
             client-secret: nsdBRfgpWGQWohMruqd7NyOB5z1HWvte
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:9090/login/oauth2/code/mi-cliente
+            scope: openid
   cloud:
     gateway:
       default-filters:
