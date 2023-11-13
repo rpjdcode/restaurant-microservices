@@ -73,6 +73,7 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
+		<!-- OAuth2 + Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
@@ -88,6 +89,11 @@
 			<artifactId>spring-security-oauth2-jose</artifactId>
 		</dependency>
 
+		<!-- Vault -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-vault-config</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -111,6 +117,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 
 		<dependency>
 			<groupId>com.mysql</groupId>

@@ -6,7 +6,13 @@ spring:
     config:
       enabled: true
       uri: http://localhost:9000
-      
+    vault:
+      application-name: restaurant-user-microservice
+      scheme: http
+      authentication: TOKEN
+      host: localhost
+      token: hvs.gRfMITy7nDcYZB2qOoboR12I
+      port: '8200'
       
   security:
     oauth2:

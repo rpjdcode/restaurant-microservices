@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          default-label: keycloak
+          default-label: vault
           uri: https://github.com/rpjdcode/restaurant-microservices
           search-paths: /restaurant-config-microservice/config-data
           username: rpjdcode
