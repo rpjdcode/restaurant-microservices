@@ -20,7 +20,7 @@ Proyecto de Microservicios Spring Boot + Spring Cloud + Angular + despliegue con
 
 - Eureka: Servidor de descubrimiento y registro de aplicaciones cliente. Permite la comunicación de los microservicios.
 
-![](\images\eureka_ejemplo.JPG)
+![](/images/eureka_ejemplo.JPG)
 
 **Spring Cloud Config Server**
 
@@ -30,7 +30,7 @@ Proyecto de Microservicios Spring Boot + Spring Cloud + Angular + despliegue con
 
 - Las configuraciones son almacenadas en un repositorio GIT. El Config Server administra la configuración a los Config Client.
 
-  ![](.\images\configuraciones.JPG)
+  ![](/images/configuraciones.JPG)
 
 **Spring Cloud Gateway**
 
@@ -43,7 +43,7 @@ Proyecto de Microservicios Spring Boot + Spring Cloud + Angular + despliegue con
 
 Ayuda en el análisis de problemas en entornos distribuidos. Rastrea el flujo de una petición a medida que a traviesa varios servicios del entorno, por lo que permite diagnosticar problemas de rendimiento
 
-![](.\images\zipkin_ejemplo.JPG)
+![](/images/zipkin_ejemplo.JPG)
 
 **Spring Cloud Circuit Breaker: Resiliencia de microservicios**
 
