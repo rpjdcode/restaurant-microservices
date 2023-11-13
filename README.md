@@ -14,13 +14,13 @@ Proyecto de Microservicios Spring Boot + Spring Cloud + Angular + despliegue con
 
 - Vault 1.15.1: Herramienta de gestión de secretos y protección de información confidencial. Puede ser utilizado para almacenar propiedades de conexión, claves de API, tokens, etc.
 
-![](.\images\vault_ejemplo.JPG)
+![](/images/vault_ejemplo.JPG)
 
 **Servidor de registro  (Discovery/Registry Server)**
 
 - Eureka: Servidor de descubrimiento y registro de aplicaciones cliente. Permite la comunicación de los microservicios.
 
-![](.\images\eureka_ejemplo.JPG)
+![](\images\eureka_ejemplo.JPG)
 
 **Spring Cloud Config Server**
 
