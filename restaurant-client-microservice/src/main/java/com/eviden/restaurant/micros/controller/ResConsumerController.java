@@ -81,6 +81,6 @@ public class ResConsumerController {
 	 */
 	@SuppressWarnings("unused")
 	private ResponseEntity<?> fallbackGetConsumerBookings(@PathVariable("consumerId")long consumerId, Exception error) {
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo obtener los bookings del consumidor");
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo obtener los bookings del consumidor" + error);
 	}
 }

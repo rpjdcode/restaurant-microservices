@@ -3,6 +3,12 @@ package com.eviden.restaurant.micros.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -42,13 +48,15 @@ public class ResConsumerService {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Booking> findConsumerBookings(long consumerId) {
-//		String url = restTemplateConfig.getBookingsBaseUrl().concat(restTemplateConfig.getBookingsPort())
-//				.concat(restTemplateConfig.getBookingsEndpoint()+"/booking/");
-		// Al estar registrado en Eureka, sólo con indicar el nombre del microservicio es suficiente
+		Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + jwt.getTokenValue());
+		
 		String url = restTemplateConfig.getEurekaBookingsBaseUrl().concat(restTemplateConfig.getEurekaBookingsMicroName())
 				.concat(restTemplateConfig.getBookingsEndpoint() + "/booking/");
-		List<Booking> bookings = restTemplate.getForObject(url + consumerId, List.class);
-		return bookings;
+		ResponseEntity<?> bookings = restTemplate.exchange(url + consumerId, HttpMethod.GET, new HttpEntity<>(headers),List.class);
+		return (List<Booking>) bookings.getBody();
 	}
 
 	/**
