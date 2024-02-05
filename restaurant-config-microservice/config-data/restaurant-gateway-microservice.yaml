@@ -27,7 +27,6 @@ spring:
             provider: keycloak
             client-id: spring-micros-client
             authorization-grant-type: authorization_code
-            redirect-uri: /*
             scope: openid
   cloud:
     gateway:
