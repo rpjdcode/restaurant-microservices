@@ -23,10 +23,11 @@ spring:
             user-name-attribute: preferred_username
             token-uri: http://localhost:8080/realms/restaurante/protocol/openid-connect/token
         registration:
-          mi-cliente:
+          spring-micros-client:
             provider: keycloak
             client-id: spring-micros-client
             authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/spring-micros-client
             scope: openid
   cloud:
     gateway:
