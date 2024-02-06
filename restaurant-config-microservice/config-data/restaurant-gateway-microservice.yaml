@@ -9,26 +9,6 @@ eureka:
   instance:
     hostname: localhost
 spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/restaurante
-          jwk-set-uri: http://localhost:8080/realms/restaurante/protocol/openid-connect/certs
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/restaurante
-            authorization-uri: http://localhost:8080/realms/restaurante/protocol/openid-connect/auth
-            user-info-uri: http://localhost:8080/realms/restaurante/protocol/openid-connect/userinfo
-            user-name-attribute: preferred_username
-            token-uri: http://localhost:8080/realms/restaurante/protocol/openid-connect/token
-        registration:
-          spring-micros-client:
-            provider: keycloak
-            client-id: spring-micros-client
-            authorization-grant-type: authorization_code
-            scope: openid
   cloud:
     gateway:
       default-filters:
