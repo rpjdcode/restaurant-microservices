@@ -11,6 +11,20 @@ eureka:
 spring:
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]': # Aplica esta configuración a todas las rutas
+            allowedOrigins: "http://localhost:4200" # Orígenes permitidos
+            allowedMethods: # Métodos HTTP permitidos
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: # Cabeceras permitidas
+              - Content-Type
+              - Authorization
+            allowCredentials: true # Soporte para cookies y autenticación HTTP
       default-filters:
         - TokenRelay
       discovery:
