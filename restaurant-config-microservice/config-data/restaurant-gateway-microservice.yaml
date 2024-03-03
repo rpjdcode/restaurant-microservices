@@ -24,6 +24,7 @@ spring:
             allowedHeaders: # Cabeceras permitidas
               - Content-Type
               - Authorization
+              - Accept
             allowCredentials: true # Soporte para cookies y autenticación HTTP
       default-filters:
         - TokenRelay
