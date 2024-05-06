@@ -12,4 +12,4 @@ spring:
           uri: https://github.com/rpjdcode/restaurant-microservices
           search-paths: /restaurant-config-microservice/config-data
           username: rpjdcode
-          password: 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
+          password: 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

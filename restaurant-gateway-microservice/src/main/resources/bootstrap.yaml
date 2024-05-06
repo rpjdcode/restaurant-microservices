@@ -1,11 +1,31 @@
 spring:
   application:
     name: restaurant-gateway-microservice
-    
   cloud:
     config:
       enabled: true
       uri: http://localhost:9000
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:8080/realms/idp-realm/protocol/openid-connect/auth
+            user-info-uri: http://localhost:8080/realms/idp-realm/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+            token-uri: http://localhost:8080/realms/idp-realm/protocol/openid-connect/token
+        registration:
+          rest-client:
+            provider: keycloak
+            client-id: rest-client
+            client-secret: f3un5bmeu8eFt7lZDb2NzhHyUd2D1Kem
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/rest-client"
+          
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/idp-realm
+          jwk-set-uri: http://localhost:8080/realms/idp-realm/protocol/openid-connect/certs
 logging:
     level:
         org:

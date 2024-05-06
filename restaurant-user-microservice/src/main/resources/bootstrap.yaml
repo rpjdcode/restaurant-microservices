@@ -11,11 +11,13 @@ spring:
       scheme: http
       authentication: TOKEN
       host: localhost
-      token: hvs.gRfMITy7nDcYZB2qOoboR12I
+      token: hvs.tIo1fCMslIZnOeSJRCo6LDpa
       port: '8200'
-      
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/proyectoBackend
+
+keycloak:
+  realm: restaurante
+  auth-server-url: http://localhost:8080
+  ssl-required: external
+  resource: spring-micros-backend
+  use-resource-role-mappings: true
+  bearer-only: true

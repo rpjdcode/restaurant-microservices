@@ -2,47 +2,49 @@ package com.eviden.restaurant.micros.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+
+import com.eviden.restaurant.micros.security.jwt.CustomJwt;
+import com.eviden.restaurant.micros.security.jwt.CustomJwtConverter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-public class UserSecurity{
+public class UserSecurity {
+	
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests((authz) -> 
-            	authz.requestMatchers("/api/users/**").hasRole("admin").anyRequest().authenticated())
-            	.oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()));
+//    	 DelegatingJwtGrantedAuthoritiesConverter authoritiesConverter =
+//    	          // Using the delegating converter multiple converters can be combined
+//    	          new DelegatingJwtGrantedAuthoritiesConverter(
+//    	                  // First add the default converter
+//    	                  new JwtGrantedAuthoritiesConverter(),
+//    	                  // Second add our custom Keycloak specific converter
+//    	                  new KeycloakJwtRolesConverter());
+        
+        http.authorizeHttpRequests(customizer -> {
+        	customizer.requestMatchers("/**").hasAuthority("ADMIN");
+        	customizer.anyRequest().authenticated();
+        }).oauth2ResourceServer(resourceServer -> resourceServer.jwt(jwt -> {
+        	jwt.jwtAuthenticationConverter(customJwtConverter());
+        }));
+        
         return http.build();
     }
     
+//    @Bean
+//    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+//        return new NullAuthenticatedSessionStrategy();
+//    }
+    
     @Bean
-    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new NullAuthenticatedSessionStrategy();
-    }
-
-    /**
-     * Convertidor que permite indicar el nombre del claim del JSON de los roles.
-     * En este caso, se ha indicado en el client scope de Keycloak
-     * @return
-     */
-    @Bean
-     JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-        grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
-        return jwtAuthenticationConverter;
+    Converter<Jwt, CustomJwt> customJwtConverter() {
+    	return new CustomJwtConverter();
     }
 
 }

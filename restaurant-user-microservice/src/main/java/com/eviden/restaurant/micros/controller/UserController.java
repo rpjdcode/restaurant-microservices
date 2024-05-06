@@ -7,16 +7,20 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eviden.generics.keycloak.KeycloakUser;
 import com.eviden.restaurant.micros.beans.UserValidationBean;
 import com.eviden.restaurant.micros.config.ResponsesPropertiesConfig;
 import com.eviden.restaurant.micros.dto.UserDTO;
@@ -28,6 +32,8 @@ import com.eviden.restaurant.micros.service.UserService;
 import com.eviden.restaurant.micros.util.UserValidationType;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.PUT,
+		RequestMethod.POST, RequestMethod.DELETE })
 @RequestMapping("/api/users")
 public class UserController {
 
@@ -48,10 +54,17 @@ public class UserController {
 	 * Endpoint que permite obtener todos los usuarios almacenados
 	 * @return
 	 */
+	@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.PUT,
+			RequestMethod.POST, RequestMethod.DELETE })
 	@GetMapping
-	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<List<UserDTO>> rootEndpoint() {
+		Jwt jwt = (Jwt)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		KeycloakUser usuario = new KeycloakUser(jwt);
+		System.err.println("CLAIMS: " + jwt.getClaims());
+		System.err.println("SESION: " + usuario.getSession());
+		System.err.println("USUARIO: " + usuario.getUsername());
+		System.err.println("ROLES: " + usuario.getRoles());
 		List<UserDTO> users = service.getUsers().stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
 		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}
